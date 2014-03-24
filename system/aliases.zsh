@@ -8,3 +8,13 @@ then
   alias ll="gls -l --color"
   alias la='gls -A --color'
 fi
+
+# ----------------------------------------------------------------------
+# Safeguards
+# ----------------------------------------------------------------------
+
+alias rm='rm -i'
+alias cp='cp -i'
+alias mv='mv -i'
+# -> Prevents accidentally clobbering files.
+alias mkdir='mkdir -p'

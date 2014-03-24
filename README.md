@@ -1,4 +1,4 @@
-# holman does dotfiles
+# blimmer does dotfiles - again
 
 ## dotfiles
 
