@@ -8,3 +8,8 @@ cd "$(dirname $0)"/..
 
 # find the installers and run them iteratively
 find . -name install.sh | while read installer ; do sh -c "${installer}" ; done
+
+if [ "$(uname -s)" == "Darwin" ]
+then
+  find . -name install.sh.osx | while read installer ; do sh -c "${installer}" ; done
+fi
