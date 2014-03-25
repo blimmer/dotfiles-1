@@ -1,0 +1,23 @@
+#!/bin/sh
+#
+# Downloads the specified fonts and installs them to Font Book
+
+font_location=~/Library/Fonts
+
+fonts=(
+	"http://www.levien.com/type/myfonts/Inconsolata.otf"
+)
+
+for font in "${fonts[@]}"
+do
+	font_name=$(basename $font)
+	if [ ! -f "${font_location}/${font_name}" ]
+	then
+		echo "Downloading ${font_name}..."
+		echo "Remember to click Install and quit Font Book.app to continue"
+		curl $font -o /tmp/$font_name
+		open -W -a /Applications/Font\ Book.app /tmp/$font_name
+		rm /tmp/$font_name
+		echo "Installed ${font_name}"
+	fi
+done
