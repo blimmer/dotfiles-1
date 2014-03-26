@@ -14,17 +14,21 @@ git_branch() {
 }
 
 git_dirty() {
-  st=$($git status 2>/dev/null | tail -n 1)
-  if [[ $st == "" ]]
+  if [[ -f .git/HEAD ]]
   then
-    echo ""
-  else
+    echo -n "%{$fg_bold[yellow]%}($(git_prompt_info)"
+
+    st=$($git status 2>/dev/null | tail -n 1)
     if [[ "$st" =~ ^nothing ]]
     then
-      echo "on %{$fg_bold[green]%}$(git_prompt_info)%{$reset_color%}"
+      echo -n " ✓"
     else
-      echo "on %{$fg_bold[red]%}$(git_prompt_info)%{$reset_color%}"
+      echo -n " ✗"
     fi
+    echo "$(need_push)%{$fg_bold[yellow]%})%{$reset_color%} "
+
+  else
+    echo ""
   fi
 }
 
@@ -41,38 +45,27 @@ unpushed () {
 need_push () {
   if [[ $(unpushed) == "" ]]
   then
-    echo " "
-  else
-    echo " with %{$fg_bold[magenta]%}unpushed%{$reset_color%} "
-  fi
-}
-
-ruby_version() {
-  if (( $+commands[rbenv] ))
-  then
-    echo "$(rbenv version | awk '{print $1}')"
-  fi
-
-  if (( $+commands[rvm-prompt] ))
-  then
-    echo "$(rvm-prompt | awk '{print $1}')"
-  fi
-}
-
-rb_prompt() {
-  if ! [[ -z "$(ruby_version)" ]]
-  then
-    echo "%{$fg_bold[yellow]%}$(ruby_version)%{$reset_color%} "
-  else
     echo ""
+  else
+    echo " %{$fg_bold[red]%}⤉%{$reset_color%}"
+  fi
+}
+
+username() {
+  echo "%{$fg_bold[green]%}%n%{$reset_color%}"
+}
+
+ssh_info() {
+  if [ ! -z "$SSH_CONNECTION" ]; then
+    echo "@%{$fg_bold[cyan]%}%m%{$reset_color%}"
   fi
 }
 
 directory_name() {
-  echo "%{$fg_bold[cyan]%}%1/%\/%{$reset_color%}"
+  echo "%{$fg_bold[white]%}%~%{$reset_color%}"
 }
 
-export PROMPT=$'\n$(rb_prompt)in $(directory_name) $(git_dirty)$(need_push)\n› '
+export PROMPT=$'$(username)$(ssh_info):$(directory_name) $(git_dirty)\n› '
 set_prompt () {
   export RPROMPT="%{$fg_bold[cyan]%}%{$reset_color%}"
 }
