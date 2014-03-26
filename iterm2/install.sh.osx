@@ -1,0 +1,39 @@
+#!/bin/sh
+#
+# iTerm2
+#
+# This places the configuration file for iTerm2. Cask installs the app.
+#
+# Thanks for the inspiration, fnichol.
+# https://raw.github.com/fnichol/macosx-iterm2-settings
+
+plist="com.googlecode.iterm2.plist"
+plist_location="$ZSH/iterm2/$plist"
+new_plist="/tmp/${plist}-$$"
+installed_plist="$HOME/Library/Preferences/$plist"
+
+if [[ "$TERM_PROGRAM" == "iTerm.app" ]]
+then
+  echo "You appear to be running this script from within iTerm.app which could"
+  echo "overwrite your new preferences on quit.\n"
+  echo "Please quit iTerm and run this from Terminal.app or an SSH session."
+  exit
+fi
+
+if ps wwwaux | egrep -q 'iTerm\.app' >/dev/null
+then
+  echo "You appear to have iTerm.app currently running. Please quit the"
+  echo "application so your updates won't get overridden on quit.\n"
+  exit
+fi
+
+plutil -convert binary1 -o $new_plist $plist_location
+
+if [[ $? -eq 0 ]]
+then
+  cp -f "$new_plist" "$installed_plist" && rm -f $new_plist
+else
+  echo "The download or conversion from XML to binary failed. Your current"
+  echo "preferences have not been changed.\n"
+  exit
+fi
