@@ -21,6 +21,7 @@ installcask caffeine
 installcask dropbox
 installcask firefox
 installcask google-chrome
+installcask hipchat
 installcask iterm2
 installcask the-unarchiver
 installcask vlc
