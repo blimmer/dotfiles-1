@@ -73,6 +73,9 @@ defaults write com.apple.menuextra.battery ShowPercent -string "YES"
 # Disable the warning before emptying the Trash
 defaults write com.apple.finder WarnOnEmptyTrash -bool false
 
+#Disable sound effect when changing volume
+defaults write -g com.apple.sound.beep.feedback -integer 0
+
 # Set up Safari for development.
 defaults write com.apple.Safari IncludeInternalDebugMenu -bool true
 defaults write com.apple.Safari IncludeDevelopMenu -bool true
