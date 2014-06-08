@@ -11,3 +11,9 @@ then
   echo "  Installing ruby-build for you."
   brew install ruby-build > /tmp/ruby-build-install.log
 fi
+
+if test ! $(which readline)
+then
+  echo "  Installing readline for you."
+  brew install readline > /tmp/readline-install.log
+fi

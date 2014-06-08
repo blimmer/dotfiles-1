@@ -23,5 +23,6 @@ installcask firefox
 installcask google-chrome
 installcask hipchat
 installcask iterm2
+installcask spotify
 installcask the-unarchiver
 installcask vlc
