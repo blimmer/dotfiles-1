@@ -51,3 +51,13 @@ unset config_files
 
 export NVM_DIR="/Users/blimmer/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+### Added by the Heroku Toolbelt
+export PATH="/usr/local/heroku/bin:$PATH"
+
+eval "$(thefuck --alias)"
+
+test -e "${HOME}/.iterm2_shell_integration.zsh" && source "${HOME}/.iterm2_shell_integration.zsh"
+
+# added by travis gem
+[ -f /Users/blimmer/.travis/travis.sh ] && source /Users/blimmer/.travis/travis.sh
